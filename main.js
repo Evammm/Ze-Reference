@@ -16,16 +16,76 @@ createResetListener() {
 }
 boardE1eventlistener {
   returns if you hit a bomb or won with the click
-  parses information from the cell oyu clicked
-  if it is in fact a cell
+  parses information from the cell you clicked
+  if it is in fact a cell it sets a timer if there is none and parses integers corresponding to its coordinates in the grid
+  if you are holding shif and click, as long as there are still bombs left, you place a flag
+  if you aren't, it reveals the cell
+  if you reveal a bomb, it resets the timer and loses you
+  it rerenders the game and runs GETWINNER()
 }
+getWinner() {
+  it checks every row and column with for loops
+  if any of these cells are not revealed and not a bomb, it returns false
+  if no cells are not revealed and not a bomb, it returns true
+}
+
+eventlistenersizebuttons {
+  when clicking a size button, sets the size to be that button
+}
+
+setTimer {
+  makes a the var TIMERID an interval that adds 1 to the timer and updates the html every second
+}
+
+revealAll {
+  for each row and cell in row it calls for CELL.REVEAL
+}
+
+buildTable {
+  uses SIZE to format a CSS table to look like the window 98 asthetic
+  initializes CREATERESETLISTENER and initalizes the var CELL and initializes the queries for finding a cell in the grid
+}
+
+buildArrays {
+  makes the array ARR with the size as the var SIZE and returns ARR to be used later
+}
+
+buildCells {
+  for each row in ARR it takes every column and assigns it a cell with coordinates and logic for being inside of the board
+  runs ADDBOMBS()
+  tells each cell to calculate adjacent bombs with CELL.CALCADJBOMBS() inside of RUNCODEFORALLCELLS
+}
+
+runCodeForAllCells{
+  takes every row and every column in each row and runs code specified in funcion
+}
+
+getBombCount {
+  uses var COUNT to check every cell in every row for CELL.BOMB and then add every bomb together
+  returns COUNT
+}
+
+render{
+
+}
+
+init{
+builds table using BUILDTABLE
+builds array using BUILDARRAY
+builds cells using BUILDCELLS
+sets var bombcount to GETBOMBCOUNT
+sets ELASPEDTIME to 0
+clears any TIMER
+sets HITBOMB and WINNER to FALSE
+}
+
 */
 
 
 /*----- constants -----*/
 var bombImage = '<img src="images/bomb.png">';
 var flagImage = '<img src="images/flag.png">';
-var wrongBombImage = '<img src="images/wrong-bomb.png">'
+var wrongBombImage = '<img src="images/wrong-bomb.png">';
 var sizeLookup = {
   '9': {totalBombs: 10, tableWidth: '245px'},
   '16': {totalBombs: 40, tableWidth: '420px'},
